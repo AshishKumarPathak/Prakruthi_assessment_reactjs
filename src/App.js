@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Questionnaire from './components/Questionare';
+import Result from './components/Result';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [results, setResults] = useState({ vata: 0, pitta: 0, kapha: 0 });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleResult = (finalScores) => {
+    setResults(finalScores);
+    setIsSubmitted(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>Prakruthi Assessment</h1>
+      {isSubmitted ? (
+        <Result results={results} />
+      ) : (
+        <Questionnaire onSubmit={handleResult} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
